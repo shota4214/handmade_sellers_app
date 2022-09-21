@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  owner_id: 1
+  image: MyText
+  email: MyString
+  shop_url: MyText
+  telephone_number: MyString
+  post_code: MyString
+  address: MyString
+  opening_date: 2022-09-21
+  business_start: 2022-09-21
+  content: MyText
+
+two:
+  name: MyString
+  owner_id: 1
+  image: MyText
+  email: MyString
+  shop_url: MyText
+  telephone_number: MyString
+  post_code: MyString
+  address: MyString
+  opening_date: 2022-09-21
+  business_start: 2022-09-21
+  content: MyText
