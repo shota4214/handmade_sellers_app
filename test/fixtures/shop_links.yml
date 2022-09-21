@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  twitter_url: MyText
+  facebook_url: MyText
+  instagram_url: MyText
+  tiktok_url: MyText
+  youtube_url: MyText
+  website_url: MyText
+  shop: one
+
+two:
+  twitter_url: MyText
+  facebook_url: MyText
+  instagram_url: MyText
+  tiktok_url: MyText
+  youtube_url: MyText
+  website_url: MyText
+  shop: two
