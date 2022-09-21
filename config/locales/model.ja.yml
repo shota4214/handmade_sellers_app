@@ -1,0 +1,36 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      shop: ショップ
+      assign: ユーザー割当
+      social_media: SNS
+      material: 材料
+      production: 制作
+      product: 商品
+      supplier: 仕入れ先
+      sales_destination: 販売先
+      sold: 販売
+      unit: 単位
+      material_category: 材料カテゴリ
+      product_category: 商品カテゴリ
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        current_password: 現在のパスワード
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: ログインを記憶
+      shop:
+      assign:
+      social_media:
+      material:
+      production:
+      product:
+      supplier:
+      sales_destination:
+      sold:
+      unit:
+      material_category:
+      product_category:
