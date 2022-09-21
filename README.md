@@ -15,8 +15,8 @@
 
 ## 準備
 ```
-$ git clone 
-$ cd 
+$ git clone https://github.com/shota4214/handmade_sellers_app.git
+$ cd handmade_sellers_app
 $ bundle install
 $ rails db:create
 $ rails db:migrate
