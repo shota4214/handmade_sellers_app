@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 2022_09_21_131713) do
     t.string "name", null: false
     t.text "image"
     t.boolean "admin", default: false, null: false
-    t.integer "keep_shop_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

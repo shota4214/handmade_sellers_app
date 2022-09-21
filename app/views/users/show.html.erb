@@ -8,6 +8,6 @@
 <h3>ユーザー名: <%= @user.name %></h3>
 <p>メールアドレス: <%= @user.email %></p>
 <p>管理者: <%= @user.admin %></p>
-<p>所属ショップ: <%= @user.keep_shop_id %></p>
+<p>所属ショップ: <%= @user.shop_id %></p>
 
 <%= link_to "ユーザー情報編集", edit_user_registration_path(@user) %>

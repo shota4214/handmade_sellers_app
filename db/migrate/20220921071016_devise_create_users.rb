@@ -6,7 +6,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :name, null: false
       t.text :image
       t.boolean :admin, null: false, default: false
-      t.integer :keep_shop_id
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""
