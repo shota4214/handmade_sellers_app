@@ -1,0 +1,62 @@
+
+  <%= form_with(model: shop, local: true) do |form| %>
+  <% if shop.errors.any? %>
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h5>
+        <i class="icon fa fa-ban"></i>
+        <%= pluralize(shop.errors.count, "error") %> prohibited this team from being saved:
+      </h5>
+      <ul>
+        <% shop.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :image %><br>
+    <%= form.file_field :image %>
+    <%= form.hidden_field :image_cache %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, placeholder: "ショップ名", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.email_field :email, placeholder: "ショップメールアドレス", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :telephone_number %>
+    <%= form.text_field :telephone_number, placeholder: "xx-xxxx-xxxx", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :post_code %>
+    <%= form.text_field :post_code, placeholder: "〒xxx-xxxx", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address %>
+    <%= form.text_field :address, placeholder: "xx県xx市xx xx-xx", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :shop_url %>
+    <%= form.text_field :shop_url, placeholder: "https://www.xxx.com", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.text_field :content, placeholder: "ショップ内容等", class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "登録", class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -12,7 +12,11 @@ class ShopsController < ApplicationController
     @shop = Shop.new(shop_params)
     @shop.owner = current_user
     if @shop.save
-      
+      @shop.invite_member(@shop.owner)
+      redirect_to @shop, notice: 'ショップを作成しました'
+    else
+      flash.now[:error] = 'ショップ作成に失敗しました'
+      render :new
     end
   end
 
