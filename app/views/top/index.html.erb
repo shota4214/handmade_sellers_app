@@ -7,3 +7,7 @@
 ・自ショップの原価計算や売上管理</p>
 
 <%= link_to "ショップ新規登録", new_shop_path %>
+
+<% @user_assign_shops.each do |shop| %>
+  <li><%= link_to "#{shop.name}詳細", shop_path(shop) %></li>
+<% end %>

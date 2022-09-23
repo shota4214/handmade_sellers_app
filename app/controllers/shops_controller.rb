@@ -1,4 +1,6 @@
 class ShopsController < ApplicationController
+  before_action :authenticate_user!, only: %i[show]
+  before_action :set_shop, only: %i[show]
 
   def index
     @shops = Shop.all
@@ -20,9 +22,17 @@ class ShopsController < ApplicationController
     end
   end
 
+  def show
+    @shop_clerks = @shop.assign_users.ids
+  end
+
   private
 
   def shop_params
     params.require(:shop).permit(:name, :owner_id, :image, :image_cache, :email, :shop_url, :telephone_number, :post_code, :address, :opening_date, :business_start, :content)
+  end
+
+  def set_shop
+    @shop = Shop.find(params[:id])
   end
 end

@@ -1,0 +1,20 @@
+<h1><%= @shop.name %> の詳細</h1>
+<br>
+<% if @shop.image? %>
+  <%= image_tag @shop.image.url %>
+<% else %>
+  <%= image_tag (asset_path'no_image.png') %>
+<% end %>
+<h3>ショップ名: <%= @shop.name %></h3>
+<p>メールアドレス: <%= @shop.email %></p>
+<p>電話番号： <%= @shop.telephone_number %></p>
+<p>郵便番号： <%= @shop.post_code %></p>
+<p>住所： <%= @shop.address %></p>
+<p>ホームページ： <%= @shop.shop_url %></p>
+<p>ショップ内容： <%= @shop.content %></p>
+
+<p>SNS</p>
+
+<% if @shop_clerks.find(@shop.id) %>
+  オーナー
+<% end %>
