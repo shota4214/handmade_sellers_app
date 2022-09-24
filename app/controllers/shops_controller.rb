@@ -23,7 +23,7 @@ class ShopsController < ApplicationController
   end
 
   def show
-    @shop_clerks = @shop.assign_users.ids
+    @shop_clerks = current_user.assign_shops.ids
   end
 
   def edit
@@ -40,7 +40,7 @@ class ShopsController < ApplicationController
 
   def destroy
     @shop.destroy
-    redirect_to 
+    redirect_to shops_path, notice: "ショップを削除しました"
   end
 
   private
