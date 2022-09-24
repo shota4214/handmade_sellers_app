@@ -16,5 +16,6 @@
 <p>SNS</p>
 
 <% if @shop_clerks.find(@shop.id) %>
-  オーナー
+  オーナー<br>
+  <%= link_to "ショップ情報編集", edit_shop_path(@shop) %>
 <% end %>

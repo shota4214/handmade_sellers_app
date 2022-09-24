@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
-  before_action :authenticate_user!, only: %i[show]
-  before_action :set_shop, only: %i[show]
+  before_action :authenticate_user!, only: %i[new edit create update]
+  before_action :set_shop, only: %i[show edit update]
 
   def index
     @shops = Shop.all
@@ -24,6 +24,23 @@ class ShopsController < ApplicationController
 
   def show
     @shop_clerks = @shop.assign_users.ids
+  end
+
+  def edit
+  end
+
+  def update
+    if @shop.update(shop_params)
+      redirect_to @shop, notice: "ショップ情報を更新しました"
+    else
+      flash.now[:error] = "ショップ情報の更新に失敗しました"
+      render :edit
+    end
+  end
+
+  def destroy
+    @shop.destroy
+    redirect_to 
   end
 
   private

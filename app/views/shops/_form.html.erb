@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :image %><br>
+    <%= form.label :image %><%= image_tag @shop.image.url if @shop.image? %><br>
     <%= form.file_field :image %>
     <%= form.hidden_field :image_cache %>
   </div>
