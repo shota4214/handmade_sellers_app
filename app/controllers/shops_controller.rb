@@ -23,14 +23,6 @@ class ShopsController < ApplicationController
   end
 
   def show
-    if user_signed_in?
-    @user_assign_shops = current_user.assign_shops.ids
-    @shop_owner = User.find(@shop.owner.id)
-    # find_shop_assigns = Assign.where(shop_id: @shop.id)
-    #   find_shop_assigns.each do |shop_clerk|
-    #     @shop_clerks = User.find(shop_clerk.user_id)
-    #   end
-    end
   end
 
   def edit

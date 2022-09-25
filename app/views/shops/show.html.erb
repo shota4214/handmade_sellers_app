@@ -15,7 +15,7 @@
 
 <p>SNS</p>
 <% if user_signed_in? %>
-  <% if @user_assign_shops.include?(@shop.id) %>
+  <% if current_user.assign_shops.ids.include?(@shop.id) %>
     チームメンバー招待
     <%= form_with(model: :assign, scope: :post, url: shop_assigns_path(@shop), local: true) do |form| %>
       <%= text_field_tag :email, '', { placeholder: "招待したい人のメールアドレスを入力してください"} %>
