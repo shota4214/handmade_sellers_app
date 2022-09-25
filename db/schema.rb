@@ -10,16 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_21_071016) do
+ActiveRecord::Schema.define(version: 2022_09_21_131713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assigns", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_assigns_on_shop_id"
+    t.index ["user_id"], name: "index_assigns_on_user_id"
+  end
+
+  create_table "shop_links", force: :cascade do |t|
+    t.text "twitter_url"
+    t.text "facebook_url"
+    t.text "instagram_url"
+    t.text "tiktok_url"
+    t.text "youtube_url"
+    t.text "website_url"
+    t.bigint "shop_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_shop_links_on_shop_id"
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "owner_id"
+    t.text "image"
+    t.string "email"
+    t.text "shop_url"
+    t.string "telephone_number"
+    t.string "post_code"
+    t.string "address"
+    t.date "opening_date"
+    t.date "business_start"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_shops_on_owner_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.text "image"
     t.boolean "admin", default: false, null: false
-    t.integer "keep_shop_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -36,4 +74,8 @@ ActiveRecord::Schema.define(version: 2022_09_21_071016) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assigns", "shops"
+  add_foreign_key "assigns", "users"
+  add_foreign_key "shop_links", "shops"
+  add_foreign_key "shops", "users", column: "owner_id"
 end

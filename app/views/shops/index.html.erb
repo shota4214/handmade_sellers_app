@@ -1,0 +1,33 @@
+<h1>shops</h1>
+<p id="notice"><%= notice %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>写真</th>
+      <th>ショップ名</th>
+      <th>メールアドレス</th>
+      <th>ホームページ</th>
+      <th>内容</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shops.each do |shop| %>
+      <tr>
+        <td>
+          <% if shop.image? %>
+            <%= image_tag shop.image.url, size: '50x50' %>
+          <% else %>
+            <%= image_tag asset_path("no_image.png"), size: '50x50' %>
+          <% end %></td>
+        <td><%= shop.name %></td>
+        <td><%= shop.email %></td>
+        <td><%= shop.shop_url %></td>
+        <td><%= shop.content %></td>
+        <td><%= link_to '詳細', shop %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

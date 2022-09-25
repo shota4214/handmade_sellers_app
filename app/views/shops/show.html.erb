@@ -1,0 +1,67 @@
+<h1><%= @shop.name %> の詳細</h1>
+<br>
+<% if @shop.image? %>
+  <%= image_tag @shop.image.url %>
+<% else %>
+  <%= image_tag (asset_path'no_image.png') %>
+<% end %>
+<h3>ショップ名: <%= @shop.name %></h3>
+<p>メールアドレス: <%= @shop.email %></p>
+<p>電話番号： <%= @shop.telephone_number %></p>
+<p>郵便番号： <%= @shop.post_code %></p>
+<p>住所： <%= @shop.address %></p>
+<p>ホームページ： <%= @shop.shop_url %></p>
+<p>ショップ内容： <%= @shop.content %></p>
+
+<p>SNS</p>
+<% if user_signed_in? %>
+  <% if @user_assign_shops.include?(@shop.id) %>
+    チームメンバー招待
+    <%= form_with(model: :assign, scope: :post, url: shop_assigns_path(@shop), local: true) do |form| %>
+      <%= text_field_tag :email, '', { placeholder: "招待したい人のメールアドレスを入力してください"} %>
+      <%= form.submit "招待", class: 'btn btn-primary' %>
+    <% end %>
+    <table>
+      <tr>
+        <td>
+          <% if @shop.owner.image? %>
+            <%= image_tag @shop.owner.image.url, size: '50x50' %>
+          <% else %>
+            <%= image_tag (asset_path'no_image.png'), size: '50x50' %>
+          <% end %>
+        </td>
+        <td>オーナー：<%= @shop.owner.name %></td>
+        <td><%= @shop.owner.email %></td>
+      </tr>
+    </table>
+    <table>
+      <tbody>
+        <% @shop.assigns.each do |assign|%>
+          <tr>
+            <td>
+              <% if assign.user.image? %>
+                <%= image_tag assign.user.image.url, size: '50x50' %>
+              <% else %>
+                <%= image_tag (asset_path'no_image.png'), size: '50x50' %>
+              <% end %>
+            </td>
+            <td>店員：<%= assign.user.name %></td>
+            <td><%= assign.user.email %></td>
+            <% if current_user.id == @shop.owner.id %>
+              <% unless current_user.id == assign.user.id %>
+                <td><%= link_to '削除', shop_assign_path(@shop, assign), method: :delete, data: { confirm: "#{assign.user.name}をショップから削除しますか?" } %></td>
+                <td><%= link_to '権限移譲', change_owner_shop_path(owner_id: assign.user.id), method: :post, data: { confirm: "#{assign.user.name}にオーナー権限を移譲しますか?" } %></td>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to "ショップ情報編集", edit_shop_path(@shop) %>
+    <button>単位管理</button>
+    <button>販売先管理</button>
+    <button>仕入れ先管理</button>
+    <button>材料カテゴリ管理</button>
+    <button>商品カテゴリ管理</button>
+  <% end %>
+<% end %>
