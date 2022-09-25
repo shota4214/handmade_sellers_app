@@ -10,7 +10,7 @@
 <% end %>
 
 <% unless @user_assign_shops.nil? %>
-<h3>登録済み店舗一覧</h3>
+  <h3>登録済み店舗一覧</h3>
   <% @user_assign_shops.each do |shop| %>
     <li><%= link_to "#{shop.name}詳細", shop_path(shop) %></li>
   <% end %>
