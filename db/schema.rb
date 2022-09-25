@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_21_131713) do
+ActiveRecord::Schema.define(version: 2022_09_25_125018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,36 @@ ActiveRecord::Schema.define(version: 2022_09_21_131713) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["shop_id"], name: "index_assigns_on_shop_id"
     t.index ["user_id"], name: "index_assigns_on_user_id"
+  end
+
+  create_table "material_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "material_category_assigns", force: :cascade do |t|
+    t.bigint "material_category_id"
+    t.bigint "material_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["material_category_id"], name: "index_material_category_assigns_on_material_category_id"
+    t.index ["material_id"], name: "index_material_category_assigns_on_material_id"
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "purchase_price", default: 0, null: false
+    t.integer "purchase_number", default: 0, null: false
+    t.integer "per_price", default: 0, null: false
+    t.date "purchase_date"
+    t.text "image"
+    t.integer "stock", default: 0, null: false
+    t.text "remarks"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "shop_id", null: false
+    t.index ["shop_id"], name: "index_materials_on_shop_id"
   end
 
   create_table "shop_links", force: :cascade do |t|
@@ -54,6 +84,22 @@ ActiveRecord::Schema.define(version: 2022_09_21_131713) do
     t.index ["owner_id"], name: "index_shops_on_owner_id"
   end
 
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "material_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["material_id"], name: "index_suppliers_on_material_id"
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "material_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["material_id"], name: "index_units_on_material_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.text "image"
@@ -76,6 +122,11 @@ ActiveRecord::Schema.define(version: 2022_09_21_131713) do
 
   add_foreign_key "assigns", "shops"
   add_foreign_key "assigns", "users"
+  add_foreign_key "material_category_assigns", "material_categories"
+  add_foreign_key "material_category_assigns", "materials"
+  add_foreign_key "materials", "shops"
   add_foreign_key "shop_links", "shops"
   add_foreign_key "shops", "users", column: "owner_id"
+  add_foreign_key "suppliers", "materials"
+  add_foreign_key "units", "materials"
 end
