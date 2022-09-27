@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new edit create update change_owner]
-  before_action :set_shop, only: %i[show edit update change_owner]
+  before_action :authenticate_user!, only: %i[new edit create update change_owner top]
+  before_action :set_shop, only: %i[show edit update change_owner top]
 
   def index
     @shops = Shop.all
@@ -46,6 +46,9 @@ class ShopsController < ApplicationController
       @shop.update(owner_id: params[:owner_id])
       @user = User.find(@shop.owner_id)
       redirect_to shop_path, notice: "オーナーを変更しました"
+  end
+
+  def top
   end
 
   private

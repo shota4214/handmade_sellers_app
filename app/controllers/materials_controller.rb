@@ -10,6 +10,10 @@ class MaterialsController < ApplicationController
     @material = Material.new
   end
 
+  def create
+    @material = 
+  end
+
   private
 
   def set_material

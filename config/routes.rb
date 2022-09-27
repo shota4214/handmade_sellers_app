@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
   resources :shops do
     resources :assigns, only: %i[create destroy]
+    resources :materials
     member do
       post :change_owner
+      get :top
     end
   end
-  resources :materials
 end

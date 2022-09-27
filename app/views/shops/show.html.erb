@@ -16,6 +16,7 @@
 <p>SNS</p>
 <% if user_signed_in? %>
   <% if current_user.assign_shops.ids.include?(@shop.id) %>
+    <p id="shop_clerk">ショップ店員管理</p>
     チームメンバー招待
     <%= form_with(model: :assign, scope: :post, url: shop_assigns_path(@shop), local: true) do |form| %>
       <%= text_field_tag :email, '', { placeholder: "招待したい人のメールアドレスを入力してください"} %>
@@ -58,10 +59,5 @@
       </tbody>
     </table>
     <%= link_to "ショップ情報編集", edit_shop_path(@shop) %>
-    <button>単位管理</button>
-    <button>販売先管理</button>
-    <button>仕入れ先管理</button>
-    <button>材料カテゴリ管理</button>
-    <button>商品カテゴリ管理</button>
   <% end %>
 <% end %>
