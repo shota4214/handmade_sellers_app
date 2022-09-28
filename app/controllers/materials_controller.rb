@@ -1,10 +1,10 @@
 class MaterialsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_material, only: %i[show edit update destroy]
-  before_action :set_shop, only: %i[new create]
+  before_action :set_shop, only: %i[new create index edit update]
 
   def index
-    @materials = Material.all
+    @materials = Material.where(shop: @shop)
   end
 
   def new
@@ -14,9 +14,26 @@ class MaterialsController < ApplicationController
   def create
     @material = @shop.materials.build(material_params)
     if @material.save
-      redirect_to top_shop_path(params[:shop_id]), notice: "材料を登録しました"
+      redirect_to top_shop_path(@shop), notice: "材料を登録しました"
     else
       render :new
+    end
+  end
+
+  def show
+  end
+
+  def edit
+    unless @material.purchase_number == @material.stock
+      redirect_to top_shop_path(@shop), notice: "材料を使用しているため編集できません"
+    end
+  end
+
+  def update
+    if @material.update(material_params)
+      redirect_to top_shop_path(@shop), notice: "材料を編集しました"
+    else
+      render :edit
     end
   end
 

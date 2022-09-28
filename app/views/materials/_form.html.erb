@@ -33,14 +33,14 @@
   </div>
 
   <div class="field">
-    <%= f.label :purchase_number %> <%# 何袋購入したか？ %>
+    <%= f.label :purchase_number %> <%# 購入個数 %>
     <%= f.number_field :purchase_number, id: "purchase_number" %>
+        <%# 単位を入れる。単位がcm2の場合は面積計算を出すそれがストックに入る %>
   </div>
 
     <div class="field">
-    <%= f.label :stock %> <%# 何個入りだったか？ %>
-    <%= f.number_field :stock, id: "stock" %>
-    <%# 単位を入れる %>
+    <%# 在庫数 %>
+    <%= f.hidden_field :stock, id: "stock" %>
   </div>
 
   <div class="field">
@@ -60,13 +60,12 @@
 
 
   <script>
-  $('#stock, #purchase_number').change(function() {
+  $('#purchase_number').change(function() {
     var price = $('#purchase_price').val();
     var number = $('#purchase_number').val();
-    var stock = $('#stock').val();
-    var stocks = number * stock
-    var result = Math.floor(price / stocks)
+    var result = Math.floor(price / number)
     $('#input_result').val(result)
     $('#result').text(result)
+    $('#stock').val(number)
   });
   </script>

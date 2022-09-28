@@ -1,3 +1,4 @@
+# ユーザー作成
 4.times do |n|
   User.create!(
     name: "春ショップ店員#{n + 1}",
@@ -41,7 +42,7 @@ User.create!(
   admin: true,
   image: File.open("./app/assets/images/admin.png")
 )
-
+# ショップ作成
 Shop.create!(
   name: "春ショップ",
   owner_id: 1,
@@ -98,6 +99,7 @@ Shop.create!(
   content: "ハンドメイドショップ"
 )
 
+# ユーザーとショップの関連付け
 Assign.create!(user_id: 1, shop_id: 1)
 Assign.create!(user_id: 2, shop_id: 1)
 Assign.create!(user_id: 3, shop_id: 1)
@@ -109,3 +111,52 @@ Assign.create!(user_id: 8, shop_id: 3)
 Assign.create!(user_id: 9, shop_id: 4)
 Assign.create!(user_id: 10, shop_id: 4)
 Assign.create!(user_id: 11, shop_id: 1)
+
+# 材料作成
+Material.create!(
+  shop_id: 1,
+  image: File.open("./app/assets/images/material1.png")
+  name: "生地 コットンツイル ブラック"
+  purchase_price: 2790,
+  purchase_number: 33000,
+  purchase_date: "2022-09-15",
+  per_price: 12,
+  stock: 33000,
+  remarks: "楽天で購入"
+)
+
+Material.create!(
+  shop_id: 1,
+  image: File.open("./app/assets/images/material2.png")
+  name: "生地 ホルスタインアニマル柄 綿ツイル"
+  purchase_price: 4260,
+  purchase_number: 66000,
+  purchase_date: "2022-08-26",
+  per_price: 16,
+  stock: 66000,
+  remarks: "楽天で購入"
+)
+
+Material.create!(
+  shop_id: 1,
+  image: File.open("./app/assets/images/material2.png")
+  name: "生地 ホルスタインアニマル柄 綿ツイル"
+  purchase_price: 4260,
+  purchase_number: 66000,
+  purchase_date: "2022-08-26",
+  per_price: 16,
+  stock: 66000,
+  remarks: "楽天で購入"
+)
+
+Material.create!(
+  shop_id: 1,
+  image: File.open("./app/assets/images/material3.png")
+  name: "がま口 口金シルバー角型 10cm"
+  purchase_price: 990,
+  purchase_number: 9,
+  purchase_date: "2022-08-25",
+  per_price: 110,
+  stock: 9,
+  remarks: "セリアで購入"
+)

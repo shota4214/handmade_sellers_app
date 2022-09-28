@@ -1,0 +1,18 @@
+<h1><%= @material.name %> の詳細</h1>
+<br>
+<% if @material.image? %>
+  <%= image_tag @material.image.url %>
+<% else %>
+  <%= image_tag (asset_path'no_image.png') %>
+<% end %>
+<h3>材料名: <%= @material.name %></h3>
+<p>在庫数: <%= @material.stock %><%= "単位" %></p>
+<h2>仕入れ</h2>
+<p>日付： <%= @material.purchase_date %></p>
+<p>仕入れ先： <%= "supplier" %></p>
+<p>数量： <%= @material.purchase_number %></p>
+<p>価格： <%= @material.purchase_price %></p>
+<p>備考： <%= @material.remarks %></p>
+材料カテゴリ
+<br>
+<%= link_to "ショップトップ", top_shop_path(@material.shop) %>
