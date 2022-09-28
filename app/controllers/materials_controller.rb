@@ -7,11 +7,11 @@ class MaterialsController < ApplicationController
   end
 
   def new
+    @shop = Shop.find(params[:shop_id])
     @material = Material.new
   end
 
   def create
-    @material = 
   end
 
   private

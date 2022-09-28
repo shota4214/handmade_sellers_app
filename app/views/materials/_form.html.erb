@@ -1,0 +1,72 @@
+
+<%= form_with(model: [@shop, @material], local: true) do |f| %>
+  <% if @material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @material.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% @material.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :image %>
+    <%= image_tag(@material.image.url) if @material.image && @material.image.url %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "材料名" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_date %>
+    <%= f.date_select :purchase_date, use_month_numbers: true, start_year: 2000, end_year: (Time.now.year), default: Date.new(2000, 1 , 1), autofocus: true, autocomplete: "purchase_date", class: "date-select" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_price %>
+    <%= f.number_field :purchase_price, id: "purchase_price" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_number %> <%# 何袋購入したか？ %>
+    <%= f.number_field :purchase_number, id: "purchase_number" %>
+  </div>
+
+    <div class="field">
+    <%= f.label :stock %> <%# 何個入りだったか？ %>
+    <%= f.number_field :stock, id: "stock" %>
+    <%# 単位を入れる %>
+  </div>
+
+  <div class="field">
+    <%= f.label :per_price %>
+    <%= f.number_field :per_price, id: "result" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :remarks %>
+    <%= f.text_area :remarks %>
+  </div>
+
+  <div class="field">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>
+
+
+
+  <script>
+  $('#stock').change(function() {
+    var price = $('#purchase_price').val();
+    var number = $('#purchase_number').val();
+    var stock = $('#stock').val();
+    var stocks = number * stock
+    var result = price / stocks
+    $('#result').val(result)
+  });
+  </script>
