@@ -26,8 +26,10 @@ ActiveRecord::Schema.define(version: 2022_09_25_125018) do
 
   create_table "material_categories", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_material_categories_on_shop_id"
   end
 
   create_table "material_category_assigns", force: :cascade do |t|
@@ -51,7 +53,11 @@ ActiveRecord::Schema.define(version: 2022_09_25_125018) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "shop_id", null: false
+    t.bigint "unit_id", null: false
+    t.bigint "supplier_id", null: false
     t.index ["shop_id"], name: "index_materials_on_shop_id"
+    t.index ["supplier_id"], name: "index_materials_on_supplier_id"
+    t.index ["unit_id"], name: "index_materials_on_unit_id"
   end
 
   create_table "shop_links", force: :cascade do |t|
@@ -86,18 +92,18 @@ ActiveRecord::Schema.define(version: 2022_09_25_125018) do
 
   create_table "suppliers", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "material_id"
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["material_id"], name: "index_suppliers_on_material_id"
+    t.index ["shop_id"], name: "index_suppliers_on_shop_id"
   end
 
   create_table "units", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "material_id"
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["material_id"], name: "index_units_on_material_id"
+    t.index ["shop_id"], name: "index_units_on_shop_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -122,11 +128,14 @@ ActiveRecord::Schema.define(version: 2022_09_25_125018) do
 
   add_foreign_key "assigns", "shops"
   add_foreign_key "assigns", "users"
+  add_foreign_key "material_categories", "shops"
   add_foreign_key "material_category_assigns", "material_categories"
   add_foreign_key "material_category_assigns", "materials"
   add_foreign_key "materials", "shops"
+  add_foreign_key "materials", "suppliers"
+  add_foreign_key "materials", "units"
   add_foreign_key "shop_links", "shops"
   add_foreign_key "shops", "users", column: "owner_id"
-  add_foreign_key "suppliers", "materials"
-  add_foreign_key "units", "materials"
+  add_foreign_key "suppliers", "shops"
+  add_foreign_key "units", "shops"
 end

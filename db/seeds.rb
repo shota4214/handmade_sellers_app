@@ -112,11 +112,45 @@ Assign.create!(user_id: 9, shop_id: 4)
 Assign.create!(user_id: 10, shop_id: 4)
 Assign.create!(user_id: 11, shop_id: 1)
 
+# 単位作成
+@unit = ["個", "本", "粒", "枚", "cm", "cm2"]
+@unit.each do |unit|
+  Unit.create!(shop_id: 1, name: "#{unit}")
+end
+@unit.each do |unit|
+  Unit.create!(shop_id: 2, name: "#{unit}")
+end
+@unit.each do |unit|
+  Unit.create!(shop_id: 3, name: "#{unit}")
+end
+@unit.each do |unit|
+  Unit.create!(shop_id: 4, name: "#{unit}")
+end
+
+# 仕入れ先作成
+@supplier = ["店舗", "ネット", "通販", "フリマ", "オークション", "楽天"]
+@supplier.each do |supplier|
+  Supplier.create!(shop_id: 1, name: "#{supplier}")
+end
+@supplier.each do |supplier|
+  Supplier.create!(shop_id: 2, name: "#{supplier}")
+end
+@supplier.each do |supplier|
+  Supplier.create!(shop_id: 3, name: "#{supplier}")
+end
+@supplier.each do |supplier|
+  Supplier.create!(shop_id: 4, name: "#{supplier}")
+end
+
+# 材料カテゴリ作成
+
 # 材料作成
 Material.create!(
   shop_id: 1,
-  image: File.open("./app/assets/images/material1.png")
-  name: "生地 コットンツイル ブラック"
+  unit_id: 6,
+  supplier_id: 6,
+  image: File.open("./app/assets/images/material1.png"),
+  name: "生地 コットンツイル ブラック",
   purchase_price: 2790,
   purchase_number: 33000,
   purchase_date: "2022-09-15",
@@ -127,8 +161,10 @@ Material.create!(
 
 Material.create!(
   shop_id: 1,
-  image: File.open("./app/assets/images/material2.png")
-  name: "生地 ホルスタインアニマル柄 綿ツイル"
+  unit_id: 6,
+  supplier_id: 6,
+  image: File.open("./app/assets/images/material2.png"),
+  name: "生地 ホルスタインアニマル柄 綿ツイル",
   purchase_price: 4260,
   purchase_number: 66000,
   purchase_date: "2022-08-26",
@@ -139,20 +175,10 @@ Material.create!(
 
 Material.create!(
   shop_id: 1,
-  image: File.open("./app/assets/images/material2.png")
-  name: "生地 ホルスタインアニマル柄 綿ツイル"
-  purchase_price: 4260,
-  purchase_number: 66000,
-  purchase_date: "2022-08-26",
-  per_price: 16,
-  stock: 66000,
-  remarks: "楽天で購入"
-)
-
-Material.create!(
-  shop_id: 1,
-  image: File.open("./app/assets/images/material3.png")
-  name: "がま口 口金シルバー角型 10cm"
+  unit_id: 1,
+  supplier_id: 1,
+  image: File.open("./app/assets/images/material3.png"),
+  name: "がま口 口金シルバー角型 10cm",
   purchase_price: 990,
   purchase_number: 9,
   purchase_date: "2022-08-25",
