@@ -44,8 +44,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :per_price %>
-    <%= f.number_field :per_price, id: "result" %>
+    <%= f.label :per_price %><p class="result" id="result">単数あたり原価</p>
+    <%= f.hidden_field :per_price, id: "input_result" %>
   </div>
 
   <div class="field">
@@ -59,14 +59,14 @@
 <% end %>
 
 
-
   <script>
-  $('#stock').change(function() {
+  $('#stock, #purchase_number').change(function() {
     var price = $('#purchase_price').val();
     var number = $('#purchase_number').val();
     var stock = $('#stock').val();
     var stocks = number * stock
-    var result = price / stocks
-    $('#result').val(result)
+    var result = Math.floor(price / stocks)
+    $('#input_result').val(result)
+    $('#result').text(result)
   });
   </script>
