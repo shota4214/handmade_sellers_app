@@ -6,10 +6,10 @@
   <%= image_tag (asset_path'no_image.png') %>
 <% end %>
 <h3>材料名: <%= @material.name %></h3>
-<p>在庫数: <%= @material.stock %><%= @material.units %></p>
+<p>在庫数: <%= @material.stock %><%= @material.unit.name %></p>
 <h2>仕入れ</h2>
 <p>日付： <%= @material.purchase_date %></p>
-<p>仕入れ先： <%= @material.suppliers %></p>
+<p>仕入れ先： <%= @material.supplier.name %></p>
 <p>数量： <%= @material.purchase_number %></p>
 <p>価格： <%= @material.purchase_price %></p>
 <p>備考： <%= @material.remarks %></p>
