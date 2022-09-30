@@ -1,5 +1,10 @@
 <h1>材料一覧</h1>
-<p id="notice"><%= notice %></p>
+
+<%= form_with(scope: :search, url: shop_materials_path, method: :get, local: true) do |f| %>
+  <%= f.label :material_category %>
+  <%= f.select("material_category_id", MaterialCategory.pluck(:name, :id), { include_blank: true }) %>
+  <%= f.submit "検索" %>
+<% end %>
 
 <table>
   <thead>
@@ -23,9 +28,17 @@
           <% end %></td>
         <td><%= material.name %></td>
         <td><%= material.stock %></td>
-        <td><%= material.unit.name %></td>
+        <td>
+          <% material.units.each do |unit| %>
+            <%= unit.name %>
+          <% end %>
+        </td>
         <td><%= link_to '詳細', shop_material_path(shop_id: material.shop_id, id: material) %></td>
         <td><%= link_to '編集', edit_shop_material_path(shop_id: material.shop_id, id: material) %></td>
+        <td>
+          <% material.material_categories.each do |category| %>
+            <%= category.name %>
+          <% end %>
       </tr>
     <% end %>
   </tbody>

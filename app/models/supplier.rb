@@ -1,5 +1,5 @@
 class Supplier < ApplicationRecord
-  belongs_to :shop
-  has_many :materials
   validates :name, presence: true
+  has_many :supplier_assigns, dependent: :destroy
+  has_many :materials, through: :supplier_assigns
 end

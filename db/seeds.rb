@@ -112,43 +112,9 @@ Assign.create!(user_id: 9, shop_id: 4)
 Assign.create!(user_id: 10, shop_id: 4)
 Assign.create!(user_id: 11, shop_id: 1)
 
-# 単位作成
-@unit = ["個", "本", "粒", "枚", "cm", "cm2"]
-@unit.each do |unit|
-  Unit.create!(shop_id: 1, name: "#{unit}")
-end
-@unit.each do |unit|
-  Unit.create!(shop_id: 2, name: "#{unit}")
-end
-@unit.each do |unit|
-  Unit.create!(shop_id: 3, name: "#{unit}")
-end
-@unit.each do |unit|
-  Unit.create!(shop_id: 4, name: "#{unit}")
-end
-
-# 仕入れ先作成
-@supplier = ["店舗", "ネット", "通販", "フリマ", "オークション", "楽天"]
-@supplier.each do |supplier|
-  Supplier.create!(shop_id: 1, name: "#{supplier}")
-end
-@supplier.each do |supplier|
-  Supplier.create!(shop_id: 2, name: "#{supplier}")
-end
-@supplier.each do |supplier|
-  Supplier.create!(shop_id: 3, name: "#{supplier}")
-end
-@supplier.each do |supplier|
-  Supplier.create!(shop_id: 4, name: "#{supplier}")
-end
-
-# 材料カテゴリ作成
-
 # 材料作成
 Material.create!(
   shop_id: 1,
-  unit_id: 6,
-  supplier_id: 6,
   image: File.open("./app/assets/images/material1.png"),
   name: "生地 コットンツイル ブラック",
   purchase_price: 2790,
@@ -161,8 +127,6 @@ Material.create!(
 
 Material.create!(
   shop_id: 1,
-  unit_id: 6,
-  supplier_id: 6,
   image: File.open("./app/assets/images/material2.png"),
   name: "生地 ホルスタインアニマル柄 綿ツイル",
   purchase_price: 4260,
@@ -175,8 +139,6 @@ Material.create!(
 
 Material.create!(
   shop_id: 1,
-  unit_id: 1,
-  supplier_id: 1,
   image: File.open("./app/assets/images/material3.png"),
   name: "がま口 口金シルバー角型 10cm",
   purchase_price: 990,
@@ -186,3 +148,34 @@ Material.create!(
   stock: 9,
   remarks: "セリアで購入"
 )
+
+# 単位作成
+@units = ["個", "本", "粒", "枚", "cm", "cm2"]
+@units.each do |unit|
+  Unit.create!(name: "#{unit}")
+end
+# 単位紐付け
+UnitAssign.create!(material_id: 1, unit_id: 6)
+UnitAssign.create!(material_id: 2, unit_id: 6)
+UnitAssign.create!(material_id: 3, unit_id: 1)
+
+
+# 仕入れ先作成
+@suppliers = ["店舗", "ネット", "通販", "フリマ", "オークション", "楽天"]
+@suppliers.each do |supplier|
+  Supplier.create!(name: "#{supplier}")
+end
+# 仕入れ先紐付け
+SupplierAssign.create!(material_id: 1, supplier_id: 6)
+SupplierAssign.create!(material_id: 2, supplier_id: 6)
+SupplierAssign.create!(material_id: 3, supplier_id: 1)
+
+# 材料カテゴリ作成
+@material_categories = %w[生地 ボタン 糸 ゴム その他]
+@material_categories.each do |category|
+  MaterialCategory.create!(name: "#{category}")
+end
+# 材料カテゴリ紐付け
+MaterialCategoryAssign.create!(material_id: 1, material_category_id: 1)
+MaterialCategoryAssign.create!(material_id: 2, material_category_id: 1)
+MaterialCategoryAssign.create!(material_id: 3, material_category_id: 5)

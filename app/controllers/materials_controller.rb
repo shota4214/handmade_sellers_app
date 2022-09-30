@@ -5,15 +5,22 @@ class MaterialsController < ApplicationController
 
   def index
     @materials = Material.where(shop: @shop)
+    categories = params[:search][:material_category_id] if params[:search].present?
+    @materials = @materials.joins(:material_categories).where(material_categories: { id: categories }) if categories.present?
   end
 
   def new
     @material = Material.new
+    @units = Unit.all
+    @suppliers = Supplier.all
+    @material_categories = MaterialCategory.all
   end
 
   def create
     @material = @shop.materials.build(material_params)
     if @material.save
+      UnitAssign.create!(material_id: @material.id, unit_id: params[:material][:unit_id])
+      SupplierAssign.create!(material_id: @material.id, supplier_id: params[:material][:supplier_id])
       redirect_to top_shop_path(@shop), notice: "材料を登録しました"
     else
       render :new
@@ -48,6 +55,6 @@ class MaterialsController < ApplicationController
   end
 
   def material_params
-    params.require(:material).permit(:name, :purchase_price, :purchase_number, :per_price, :purchase_date, :image, :image_cache, :stock, :remarks)
+    params.require(:material).permit(:name, :purchase_price, :purchase_number, :per_price, :purchase_date, :image, :image_cache, :stock, :remarks, { material_category_ids: [] }, :unit_ids, :supplier_ids)
   end
 end
