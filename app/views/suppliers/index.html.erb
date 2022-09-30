@@ -1,0 +1,21 @@
+<h1>仕入れ先一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>仕入れ先名</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @suppliers.each do |supplier| %>
+      <tr>
+        <td><%= supplier.name %></td>
+        <% unless @supplier_assigns.include?(supplier.id) %>
+          <td><%= link_to '削除', shop_unit_path(supplier.shop_id, supplier.id), method: :delete, data: { confirm: "仕入れ先を削除してもいいですか？"} %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

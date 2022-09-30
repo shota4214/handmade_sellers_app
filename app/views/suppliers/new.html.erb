@@ -1,0 +1,23 @@
+<h3>仕入れ先新規作成</h3>
+
+<%= form_with(model: [@shop, @supplier], local: true) do |f| %>
+  <% if @supplier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @supplier.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% @supplier.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "仕入れ先名" %>
+  </div>
+
+  <div class="field">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>
