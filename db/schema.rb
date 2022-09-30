@@ -26,8 +26,10 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
 
   create_table "material_categories", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_material_categories_on_shop_id"
   end
 
   create_table "material_category_assigns", force: :cascade do |t|
@@ -95,8 +97,10 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
 
   create_table "suppliers", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_suppliers_on_shop_id"
   end
 
   create_table "unit_assigns", force: :cascade do |t|
@@ -110,8 +114,10 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
 
   create_table "units", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "shop_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_units_on_shop_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -136,6 +142,7 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
 
   add_foreign_key "assigns", "shops"
   add_foreign_key "assigns", "users"
+  add_foreign_key "material_categories", "shops"
   add_foreign_key "material_category_assigns", "material_categories"
   add_foreign_key "material_category_assigns", "materials"
   add_foreign_key "materials", "shops"
@@ -143,6 +150,8 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
   add_foreign_key "shops", "users", column: "owner_id"
   add_foreign_key "supplier_assigns", "materials"
   add_foreign_key "supplier_assigns", "suppliers"
+  add_foreign_key "suppliers", "shops"
   add_foreign_key "unit_assigns", "materials"
   add_foreign_key "unit_assigns", "units"
+  add_foreign_key "units", "shops"
 end

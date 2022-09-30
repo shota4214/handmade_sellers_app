@@ -1,6 +1,6 @@
 <h3>単位新規作成</h3>
 
-<%= form_with(model: [@material, @unit], local: true) do |f| %>
+<%= form_with(model: [@shop, @unit], local: true) do |f| %>
   <% if @unit.errors.any? %>
     <div id="error_explanation">
       <h2><%= @unit.errors.count %>件のエラーがあります。</h2>
