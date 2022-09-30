@@ -1,0 +1,23 @@
+<h3>材料カテゴリー新規作成</h3>
+
+<%= form_with(model: [@shop, @material_category], local: true) do |f| %>
+  <% if @material_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @material_category.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% @material_category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "材料カテゴリー名" %>
+  </div>
+
+  <div class="field">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>

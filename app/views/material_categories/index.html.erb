@@ -1,0 +1,21 @@
+<h1>材料カテゴリー一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>材料カテゴリー名</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @material_categories.each do |material_category| %>
+      <tr>
+        <td><%= material_category.name %></td>
+        <% unless @material_category_assigns.include?(material_category.id) %>
+          <td><%= link_to '削除', shop_material_category_path(material_category.shop_id, material_category.id), method: :delete, data: { confirm: "材料カテゴリーを削除してもいいですか？"} %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
