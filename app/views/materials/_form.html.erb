@@ -1,0 +1,82 @@
+
+<%= form_with(model: [shop, material], local: true) do |f| %>
+  <% if material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= material.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% material.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :image %>
+    <%= image_tag(material.image.url) if material.image && material.image.url %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
+  </div>
+
+  <div class="field">
+    <%= f.label :supplier %>
+    <%= f.collection_select(:supplier_id, suppliers, :id, :name, { selected: 1 }) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "材料名" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_date %>
+    <%= f.date_select :purchase_date, use_month_numbers: true, start_year: 2000, end_year: (Time.now.year), default: (Time.now), autofocus: true, autocomplete: "purchase_date", class: "date-select" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_price %>
+    <%= f.number_field :purchase_price, id: "purchase_price" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_number %> <%# 購入個数 %>
+    <%= f.number_field :purchase_number, id: "purchase_number" %>
+    <%= f.collection_select(:unit_id, units, :id, :name, { selected: 1 }) %>
+        <%# 単位を入れる。単位がcm2の場合は面積計算を出すそれがストックに入る %>
+  </div>
+
+    <div class="field">
+    <%# 在庫数 %>
+    <%= f.hidden_field :stock, id: "stock" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :per_price %><p class="result" id="result">単数あたり原価</p>
+    <%= f.hidden_field :per_price, id: "input_result" %>
+  </div>
+
+    <div class="field">
+    <%= f.label :material_category %>
+    <%= f.collection_check_boxes(:material_category_ids, material_categories, :id, :name) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :remarks %>
+    <%= f.text_area :remarks %>
+  </div>
+
+  <div class="field">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>
+
+
+  <script>
+  $('#purchase_number').change(function() {
+    var price = $('#purchase_price').val();
+    var number = $('#purchase_number').val();
+    var result = Math.floor(price / number)
+    $('#input_result').val(result)
+    $('#result').text(result)
+    $('#stock').val(number)
+  });
+  </script>

@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new edit create update change_owner]
-  before_action :set_shop, only: %i[show edit update change_owner]
+  before_action :authenticate_user!, only: %i[new edit create update change_owner top]
+  before_action :set_shop, only: %i[show edit update change_owner top]
 
   def index
     @shops = Shop.all
@@ -23,14 +23,6 @@ class ShopsController < ApplicationController
   end
 
   def show
-    if user_signed_in?
-    @user_assign_shops = current_user.assign_shops.ids
-    @shop_owner = User.find(@shop.owner.id)
-    # find_shop_assigns = Assign.where(shop_id: @shop.id)
-    #   find_shop_assigns.each do |shop_clerk|
-    #     @shop_clerks = User.find(shop_clerk.user_id)
-    #   end
-    end
   end
 
   def edit
@@ -54,6 +46,9 @@ class ShopsController < ApplicationController
       @shop.update(owner_id: params[:owner_id])
       @user = User.find(@shop.owner_id)
       redirect_to shop_path, notice: "オーナーを変更しました"
+  end
+
+  def top
   end
 
   private
