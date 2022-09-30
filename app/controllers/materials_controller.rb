@@ -5,15 +5,16 @@ class MaterialsController < ApplicationController
 
   def index
     @materials = Material.where(shop: @shop)
+    @material_categories = MaterialCategory.where(shop: @shop)
     categories = params[:search][:material_category_id] if params[:search].present?
     @materials = @materials.joins(:material_categories).where(material_categories: { id: categories }) if categories.present?
   end
 
   def new
     @material = Material.new
-    @units = Unit.all
-    @suppliers = Supplier.all
-    @material_categories = MaterialCategory.all
+    @units = Unit.where(shop: @shop)
+    @suppliers = Supplier.where(shop: @shop)
+    @material_categories = MaterialCategory.where(shop: @shop)
   end
 
   def create

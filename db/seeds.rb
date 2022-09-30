@@ -68,7 +68,7 @@ Shop.create!(
   address: "静岡県焼津市11-11",
   opening_date: "2021-01-01",
   business_start: "2021-01-01",
-  content: "ハンドメイドショップ"
+  content: "DIYショップ"
 )
 
 Shop.create!(
@@ -150,9 +150,13 @@ Material.create!(
 )
 
 # 単位作成
-@units = ["個", "本", "粒", "枚", "cm", "cm2"]
-@units.each do |unit|
-  Unit.create!(name: "#{unit}")
+@handmade_units = %w[個 本 枚 粒 cm cm2]
+@diy_units = %w[個 本 枚]
+@handmade_units.each do |unit|
+  Unit.create!(shop_id: 1, name: "#{unit}")
+end
+@diy_units.each do |unit|
+  Unit.create!(shop_id: 2, name: "#{unit}")
 end
 # 単位紐付け
 UnitAssign.create!(material_id: 1, unit_id: 6)
@@ -161,9 +165,13 @@ UnitAssign.create!(material_id: 3, unit_id: 1)
 
 
 # 仕入れ先作成
-@suppliers = ["店舗", "ネット", "通販", "フリマ", "オークション", "楽天"]
-@suppliers.each do |supplier|
-  Supplier.create!(name: "#{supplier}")
+@handmade_suppliers = %w[店舗 ネット 通販 フリマ オークション 楽天]
+@diy_suppliers = %w[エンチョー カインズ]
+@handmade_suppliers.each do |supplier|
+  Supplier.create!(shop_id: 1, name: "#{supplier}")
+end
+@diy_suppliers.each do |supplier|
+  Supplier.create!(shop_id: 2, name: "#{supplier}")
 end
 # 仕入れ先紐付け
 SupplierAssign.create!(material_id: 1, supplier_id: 6)
@@ -171,9 +179,13 @@ SupplierAssign.create!(material_id: 2, supplier_id: 6)
 SupplierAssign.create!(material_id: 3, supplier_id: 1)
 
 # 材料カテゴリ作成
-@material_categories = %w[生地 ボタン 糸 ゴム その他]
-@material_categories.each do |category|
-  MaterialCategory.create!(name: "#{category}")
+@handmade_categories = %w[生地 ボタン 糸 ゴム その他]
+@diy_categories = %w[木材 ネジ 釘 ダボ]
+@handmade_categories.each do |category|
+  MaterialCategory.create!(shop_id: 1, name: "#{category}")
+end
+@diy_categories.each do |category|
+  MaterialCategory.create!(shop_id: 2, name: "#{category}")
 end
 # 材料カテゴリ紐付け
 MaterialCategoryAssign.create!(material_id: 1, material_category_id: 1)
