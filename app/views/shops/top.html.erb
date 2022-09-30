@@ -10,9 +10,10 @@
 <%= link_to "店員管理", shop_path(@shop) %>
 <%= "売上管理" %>
 <br>
-    <%= link_to "単位作成", new_shop_unit_path(@shop) %> |
-    <%= link_to "単位一覧", shop_units_path(@shop) %><br>
-    <button>販売先管理</button><br>
-    <button>仕入れ先管理</button><br>
-    <button>材料カテゴリ管理</button><br>
-    <button>商品カテゴリ管理</button><br>
+<%= link_to "単位作成", new_shop_unit_path(@shop) %> |
+<%= link_to "単位一覧", shop_units_path(@shop) %><br>
+<%= link_to "仕入れ先作成", new_shop_supplier_path(@shop) %> |
+<%= link_to "仕入れ先一覧", shop_suppliers_path(@shop) %><br>
+<button>販売先管理</button><br>
+<button>材料カテゴリ管理</button><br>
+<button>商品カテゴリ管理</button><br>
