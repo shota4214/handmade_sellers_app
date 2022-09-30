@@ -32,6 +32,9 @@ class MaterialsController < ApplicationController
   end
 
   def edit
+    @units = Unit.where(shop: @shop)
+    @suppliers = Supplier.where(shop: @shop)
+    @material_categories = MaterialCategory.where(shop: @shop)
     unless @material.purchase_number == @material.stock
       redirect_to top_shop_path(@shop), notice: "材料を使用しているため編集できません"
     end
