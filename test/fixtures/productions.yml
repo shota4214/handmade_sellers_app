@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  material: one
+  product: one
+  use_material_number: 1
+  use_cost_price: 1
+
+two:
+  material: two
+  product: two
+  use_material_number: 1
+  use_cost_price: 1

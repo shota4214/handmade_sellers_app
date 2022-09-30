@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :units, only: %i[index new create destroy]
     resources :suppliers, only: %i[index new create destroy]
     resources :material_categories, only: %i[index new create destroy]
+    resources :products
     member do
       post :change_owner
       get :top

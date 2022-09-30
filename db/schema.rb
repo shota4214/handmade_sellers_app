@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_30_021049) do
+ActiveRecord::Schema.define(version: 2022_09_30_125838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,32 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "shop_id", null: false
     t.index ["shop_id"], name: "index_materials_on_shop_id"
+  end
+
+  create_table "productions", force: :cascade do |t|
+    t.bigint "material_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "use_material_number", default: 0, null: false
+    t.integer "use_cost_price", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["material_id"], name: "index_productions_on_material_id"
+    t.index ["product_id"], name: "index_productions_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "image"
+    t.integer "product_cost_price", default: 0, null: false
+    t.integer "sales_price", default: 0, null: false
+    t.float "cost_rate", default: 0.0, null: false
+    t.date "create_date"
+    t.integer "product_stock", default: 0, null: false
+    t.text "remarks"
+    t.bigint "shop_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_id"], name: "index_products_on_shop_id"
   end
 
   create_table "shop_links", force: :cascade do |t|
@@ -146,6 +172,9 @@ ActiveRecord::Schema.define(version: 2022_09_30_021049) do
   add_foreign_key "material_category_assigns", "material_categories"
   add_foreign_key "material_category_assigns", "materials"
   add_foreign_key "materials", "shops"
+  add_foreign_key "productions", "materials"
+  add_foreign_key "productions", "products"
+  add_foreign_key "products", "shops"
   add_foreign_key "shop_links", "shops"
   add_foreign_key "shops", "users", column: "owner_id"
   add_foreign_key "supplier_assigns", "materials"
