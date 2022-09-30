@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :shops do
     resources :assigns, only: %i[create destroy]
     resources :materials
-    resources :units, only: %i[new create destroy]
+    resources :units, only: %i[index new create destroy]
     member do
       post :change_owner
       get :top
