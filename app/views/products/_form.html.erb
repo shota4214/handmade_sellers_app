@@ -22,3 +22,55 @@
     <%= f.label :name %>
     <%= f.text_field :name, placeholder: "商品名" %>
   </div>
+
+  <div class="field">
+    <%= f.label :create_date %>
+    <%= f.date_select :create_date, use_month_numbers: true, start_year: 2000, end_year: (Time.now.year), default: (Time.now), autofocus: true, autocomplete: "purchase_date", class: "date-select" %>
+  </div>
+
+  <label>materials</label>
+  <div class="add-button-box">
+    <%= link_to_add_association "材料を追加", f, :productions,
+      class: 'add_fields',
+      id: 'add-btn',
+      data: {
+        association_insertion_node: '#detail-association-productions',
+        association_insertion_method: 'after'
+      }
+    %>
+  <div id='detail-association-productions'>
+      <%= f.fields_for :productions do |production| %>
+        <%= render "production_fields", f: production, id: "materials-input" %>
+    <% end %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :product_stock %>
+    <%= f.number_field :product_stock %>
+  </div>
+
+  <div class="field">
+    <%= f.label :product_cost_price %>
+    <%= f.number_field :product_cost_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cost_rate %>
+    <%= f.number_field :product_cost_price, step: "0.1" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sales_price %>
+    <%= f.number_field :sales_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :remarks %>
+    <%= f.text_area :remarks %>
+  </div>
+
+  <div class="field">
+    <%= f.submit "登録" %>
+  </div>
+<% end %>
