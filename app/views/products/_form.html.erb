@@ -40,7 +40,7 @@
     %>
   <div id='detail-association-productions'>
       <%= f.fields_for :productions do |production| %>
-        <%= render "production_fields", f: production, id: "materials-input" %>
+        <%= render "production_fields", f: production, id: "materials-input", locals: { material: @material} %>
     <% end %>
   </div>
 

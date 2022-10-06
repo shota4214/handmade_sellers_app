@@ -1,12 +1,27 @@
 <div class="nested-fields">
   <table>
     <tr>
-      <td>image</td>
-      <td><%= f.collection_select(:material_id, @materials, :id, :name, prompt: "選択してください") %></td>
-      <td><%= "在庫表示" %></td>
-      <td><%= "単位" %></td>
+      <td>【写真を表示】</td>
+      <td><%= f.collection_select(:material_id, @materials, :id, :name, {prompt: "選択してください", class: "material-select", :onchange => "changeMaterial($(this).val())"}) %></td>
+        <td class="material" id="material-stock"><%= "在庫数" %></td>
+        <td class="material" id="material-unit"><%= "単位" %></td>
+        
       <td><%= f.number_field :use_material_number %></td>
       <td><%= link_to_remove_association "削除", f %></td>
     </tr>
   </table>
 </div>
+
+  <script>
+  $('#product_productions_attributes_0_material_id').change(function() {
+    var material_id = $('#product_productions_attributes_0_material_id').val();
+
+    $.ajax({
+      url: "/products/get_material",
+      type: "GET",
+      data: {
+        material_id: material_id
+      }
+    })
+  });
+  </script>

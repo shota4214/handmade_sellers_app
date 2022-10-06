@@ -17,7 +17,10 @@ class ProductsController < ApplicationController
   end
 
   def get_material
-    @material = Material.find(params[:material_id])
+    @get_material = Material.find(params[:material_id])
+    @get_material.units.each do |unit|
+      @unit = unit
+    end
     respond_to do |format|
       format.js
     end

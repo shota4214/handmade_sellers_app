@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   root 'top#index'
+  get 'products/get_material'
   resources :users, only: %i[show]
   resources :shops do
     resources :assigns, only: %i[create destroy]
