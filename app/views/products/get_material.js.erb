@@ -1,3 +1,4 @@
 $("#material-select-stock<%= @get_material.id %>").html("<%= j(@get_material.stock) %>");
 $("#material-select-unit<%= @get_material.id %>").html("<%= j(@unit.name) %>");
 $("#material-select-image<%= @get_material.id %>").html("<%= j(image_tag(@get_material.image.url, size: "50x50")) %>");
+$("#material-select-per-price<%= @get_material.id %>").html("<%= j(@get_material.per_price) %>");

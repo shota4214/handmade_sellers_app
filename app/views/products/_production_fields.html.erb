@@ -5,20 +5,24 @@
       <td><%= f.collection_select(:material_id, @materials, :id, :name ,{prompt: "選択してください"},{class: 'material-select',:onchange => "changeMaterial($(this).val())"}) %></td>
         <td><p id="material-select-stock"><%= "在庫" %></p></td>
         <td><p id="material-select-unit"><%= "数" %></p></td>
-        
-      <td><%= f.number_field :use_material_number %></td>
+        <input type="hidden" class="material-per-price "id="material-select-per-price">
+        <input type="hidden" class="material-cost-price "id="material-select-cost-price">
+
+      <td><%= f.number_field :use_material_number, class: "use-material-number", id: "material-select-use-number" %></td>
       <td><%= link_to_remove_association "削除", f %></td>
     </tr>
   </table>
 </div>
 
-  <script>
+  <script> //材料を選ぶと在庫・単位・原価を取得
   function changeMaterial(val){
-    var material_id = val;
+    window.material_id = val;
     $('#material-select-image').attr('id', 'material-select-image' + material_id);
     $('#material-select-stock').attr('id', 'material-select-stock' + material_id);
     $('#material-select-unit').attr('id', 'material-select-unit' + material_id);
-
+    $('#material-select-per-price').attr('id', 'material-select-per-price' + material_id);
+    $('#material-select-cost-price').attr('id', 'material-select-cost-price' + material_id);
+    $('#material-select-use-number').attr('id', 'material-select-use-number' + material_id);
     $.ajax({
       url: "/products/get_material",
       type: "GET",
@@ -27,4 +31,19 @@
       }
     })
   };
+  </script>
+
+  <script> //原価合計値を計算
+  $(function(){
+    window.product_cost_sum = 0;
+    $('.use-material-number').change(function() {
+      var use_number = parseInt($('#material-select-use-number' + material_id).val());
+      var cost_price = parseInt($('#material-select-per-price' + material_id).text());
+      var material_cost_price = Math.floor(use_number * cost_price)
+      $('#material-select-cost-price' + material_id).val(material_cost_price);
+      var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0);
+      $('#product-cost-result').text(product_cost_sum);
+      $('#product-cost-price').val(product_cost_sum);
+    });
+  });
   </script>
