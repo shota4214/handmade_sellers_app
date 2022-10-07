@@ -39,10 +39,11 @@
           association_insertion_method: 'after'
         }
       %>
-    <div id='detail-association-productions'>
+      <div id='detail-association-productions'>
         <%= f.fields_for :productions do |production| %>
           <%= render "production_fields", f: production %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
