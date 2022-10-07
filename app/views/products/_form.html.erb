@@ -28,20 +28,22 @@
     <%= f.date_select :create_date, use_month_numbers: true, start_year: 2000, end_year: (Time.now.year), default: (Time.now), autofocus: true, autocomplete: "purchase_date", class: "date-select" %>
   </div>
 
-  <label>materials</label>
-  <div class="add-button-box">
-    <%= link_to_add_association "材料を追加", f, :productions,
-      class: 'add_fields',
-      id: 'add-btn',
-      data: {
-        association_insertion_node: '#detail-association-productions',
-        association_insertion_method: 'after'
-      }
-    %>
-  <div id='detail-association-productions'>
-      <%= f.fields_for :productions do |production| %>
-        <%= render "production_fields", f: production, id: "materials-input", locals: { material: @material} %>
-    <% end %>
+  <div class="class-parent">
+    <label>materials</label>
+    <div class="add-button-box">
+      <%= link_to_add_association "材料を追加", f, :productions,
+        class: 'add_fields',
+        id: 'add-btn',
+        data: {
+          association_insertion_node: '#detail-association-productions',
+          association_insertion_method: 'after'
+        }
+      %>
+    <div id='detail-association-productions'>
+        <%= f.fields_for :productions do |production| %>
+          <%= render "production_fields", f: production %>
+      <% end %>
+    </div>
   </div>
 
 

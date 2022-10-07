@@ -1,10 +1,10 @@
 <div class="nested-fields">
   <table>
     <tr>
-      <td>【写真を表示】</td>
-      <td><%= f.collection_select(:material_id, @materials, :id, :name, {prompt: "選択してください", class: "material-select", :onchange => "changeMaterial($(this).val())"}) %></td>
-        <td class="material" id="material-stock"><%= "在庫数" %></td>
-        <td class="material" id="material-unit"><%= "単位" %></td>
+      <td><p id="material-select-image"><%= "写真" %></p></td>
+      <td><%= f.collection_select(:material_id, @materials, :id, :name ,{prompt: "選択してください"},{class: 'material-select',:onchange => "changeMaterial($(this).val())"}) %></td>
+        <td><p id="material-select-stock"><%= "在庫" %></p></td>
+        <td><p id="material-select-unit"><%= "数" %></p></td>
         
       <td><%= f.number_field :use_material_number %></td>
       <td><%= link_to_remove_association "削除", f %></td>
@@ -13,8 +13,11 @@
 </div>
 
   <script>
-  $('#product_productions_attributes_0_material_id').change(function() {
-    var material_id = $('#product_productions_attributes_0_material_id').val();
+  function changeMaterial(val){
+    var material_id = val;
+    $('#material-select-image').attr('id', 'material-select-image' + material_id);
+    $('#material-select-stock').attr('id', 'material-select-stock' + material_id);
+    $('#material-select-unit').attr('id', 'material-select-unit' + material_id);
 
     $.ajax({
       url: "/products/get_material",
@@ -23,5 +26,5 @@
         material_id: material_id
       }
     })
-  });
+  };
   </script>
