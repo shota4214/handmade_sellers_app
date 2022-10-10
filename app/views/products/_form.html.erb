@@ -32,7 +32,7 @@
     <label>materials</label>
     <div class="add-button-box">
       <%= link_to_add_association "材料を追加", f, :productions,
-        class: 'add_fields',
+        class: 'btn add_fields',
         id: 'add-btn',
         data: {
           association_insertion_node: '#detail-association-productions',
@@ -55,7 +55,10 @@
 
   <div class="field">
     <%= f.label :product_cost_price %><span class="product-cost-result" id="product-cost-result">商品原価</span>
-    <%= f.hidden_field :product_cost_price, id: "product_cost_price" %>
+    <%= f.hidden_field :product_cost_price, id: "product-cost-price" %><br>
+    <label>原価率30%：</label><span id="product-cost-30">価格</span><br>
+    <label>原価率40%：</label><span id="product-cost-40">価格</span><br>
+    <label>原価率50%：</label><span id="product-cost-50">価格</span><br>
   </div>
 
   <div class="field">
@@ -73,7 +76,11 @@
     <%= f.text_area :remarks %>
   </div>
 
+  <div class="recalculation">
+    <button type="button" id="recalculation-btn" disabled="true">再計算</button>
+  </div>
+
   <div class="field">
-    <%= f.submit "登録" %>
+    <%= f.submit "登録", id: "material-submit", :disabled => true %>
   </div>
 <% end %>

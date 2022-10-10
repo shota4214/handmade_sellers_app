@@ -9,10 +9,38 @@
         <input type="hidden" class="material-cost-price "id="material-select-cost-price">
 
       <td><%= f.number_field :use_material_number, class: "use-material-number", id: "material-select-use-number" %></td>
-      <td><%= link_to_remove_association "削除", f %></td>
+      <td><button type="button" class="material-determine">確定</button></td>
+      <td><%= link_to_remove_association "削除", f, class: 'remove-delete', id: 'remove-btn' %></td>
     </tr>
   </table>
 </div>
+
+<script> //最初は材料追加ボタン非表示
+  $(document).ready(function() {
+    $('#add-btn').hide();
+  });
+</script>
+
+<script> //追加ボタンを押すと追加・再計算・登録ボタン非表示
+  $(function() {
+    $('#add-btn').on('click', function() {
+      $('#add-btn').hide();
+      $('#material-submit').prop('disabled', true);
+      $('#recalculation-btn').prop('disabled', true);
+    });
+  });
+</script>
+
+<script> //確定ボタンを押すと
+  $(function() {
+    $('.material-determine').on('click', function() {
+      $('.material-select').prop('disabled', true); //材料変更できない
+      $('.use-material-number').prop('disabled', true); //使用数変更できない
+      $('#recalculation-btn').prop('disabled', false); //再計算ボタン表示
+      $('#add-btn').show(); //材料追加ボタン表示
+    });
+  });
+</script>
 
   <script> //材料を選ぶと在庫・単位・原価を取得
   function changeMaterial(val){
@@ -42,8 +70,43 @@
       var material_cost_price = Math.floor(use_number * cost_price)
       $('#material-select-cost-price' + material_id).val(material_cost_price);
       var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0);
+      var cost_rate_30 = Math.floor(product_cost_sum / 0.3)
+      var cost_rate_40 = Math.floor(product_cost_sum / 0.4)
+      var cost_rate_50 = Math.floor(product_cost_sum / 0.5)
       $('#product-cost-result').text(product_cost_sum);
       $('#product-cost-price').val(product_cost_sum);
+      $('#product-cost-30').text(cost_rate_30 + "円(参考価格)");
+      $('#product-cost-40').text(cost_rate_40 + "円(参考価格)");
+      $('#product-cost-50').text(cost_rate_50 + "円(参考価格)");
     });
   });
   </script>
+
+  <script>
+  $(function() { //再計算ボタンを押すと原価合計再計算
+    $('#recalculation-btn').click(function() {
+      var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0);
+      var cost_rate_30 = Math.floor(product_cost_sum / 0.3)
+      var cost_rate_40 = Math.floor(product_cost_sum / 0.4)
+      var cost_rate_50 = Math.floor(product_cost_sum / 0.5)
+      $('#product-cost-result').text(product_cost_sum);
+      $('#product-cost-price').val(product_cost_sum);
+      $('#product-cost-30').text(cost_rate_30 + "円(参考価格)");
+      $('#product-cost-40').text(cost_rate_40 + "円(参考価格)");
+      $('#product-cost-50').text(cost_rate_50 + "円(参考価格)");
+      $('#material-submit').prop('disabled', false); //登録ボタン表示
+    });
+  });
+  </script>
+
+<script> //削除ボタン押すと削除ボタン１個の時は追加ボタン表示する
+  $(function() {
+    $('.remove_fields').on('click', function() {
+      $('#add-btn').show(); //材料追加ボタン表示
+      $('#material-submit').prop('disabled', true); //登録ボタン非表示
+      if ($('.remove-delete').length == 1) {       //削除ボタンが1つだった時
+        $('#add-btn').show();                   //材料追加ボタンを出す
+      }
+    });
+  });
+</script>
