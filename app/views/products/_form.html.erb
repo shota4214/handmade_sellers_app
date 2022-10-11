@@ -50,11 +50,11 @@
 
   <div class="field">
     <%= f.label :product_stock %>
-    <%= f.number_field :product_stock %>
+    <%= f.number_field :product_stock, min: 1, :value => 1 %>
   </div>
 
   <div class="field">
-    <%= f.label :product_cost_price %><span class="product-cost-result" id="product-cost-result">商品原価</span>
+    <%= f.label :product_cost_price %><span class="product-cost-result" id="product-cost-result">：商品原価</span>
     <%= f.hidden_field :product_cost_price, id: "product-cost-price" %><br>
     <label>原価率30%：</label><span id="product-cost-30">価格</span><br>
     <label>原価率40%：</label><span id="product-cost-40">価格</span><br>
@@ -62,8 +62,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :cost_rate %>
-    <%= f.number_field :product_cost_price, step: "0.1" %>
+    <%= f.label :cost_rate %><span class="cost-rate-result" id="cost-rate-result">：0％</span>
+    <%= f.hidden_field :cost_rate, id: "product-cost-rate" %>
   </div>
 
   <div class="field">

@@ -65,19 +65,19 @@
   $(function(){
     window.product_cost_sum = 0;
     $('.use-material-number').change(function() {
-      var use_number = parseInt($('#material-select-use-number' + material_id).val());
-      var cost_price = parseInt($('#material-select-per-price' + material_id).text());
-      var material_cost_price = Math.floor(use_number * cost_price)
+      var use_number = parseInt($('#material-select-use-number' + material_id).val()); //使用数を取得
+      var cost_price = parseInt($('#material-select-per-price' + material_id).text()); //材料の原価を取得
+      var material_cost_price = Math.floor(use_number * cost_price); //材料の原価を計算
       $('#material-select-cost-price' + material_id).val(material_cost_price);
-      var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0);
-      var cost_rate_30 = Math.floor(product_cost_sum / 0.3)
-      var cost_rate_40 = Math.floor(product_cost_sum / 0.4)
-      var cost_rate_50 = Math.floor(product_cost_sum / 0.5)
-      $('#product-cost-result').text(product_cost_sum);
+      var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0); //素材全部の原価合計
+      var cost_rate_30 = Math.floor(product_cost_sum / 0.3);
+      var cost_rate_40 = Math.floor(product_cost_sum / 0.4);
+      var cost_rate_50 = Math.floor(product_cost_sum / 0.5);
+      $('#product-cost-result').text("：" + product_cost_sum + "/個");
       $('#product-cost-price').val(product_cost_sum);
-      $('#product-cost-30').text(cost_rate_30 + "円(参考価格)");
-      $('#product-cost-40').text(cost_rate_40 + "円(参考価格)");
-      $('#product-cost-50').text(cost_rate_50 + "円(参考価格)");
+      $('#product-cost-30').text(cost_rate_30 + "円/個(参考価格)");
+      $('#product-cost-40').text(cost_rate_40 + "円/個(参考価格)");
+      $('#product-cost-50').text(cost_rate_50 + "円/個(参考価格)");
     });
   });
   </script>
@@ -86,14 +86,14 @@
   $(function() { //再計算ボタンを押すと原価合計再計算
     $('#recalculation-btn').click(function() {
       var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0);
-      var cost_rate_30 = Math.floor(product_cost_sum / 0.3)
-      var cost_rate_40 = Math.floor(product_cost_sum / 0.4)
-      var cost_rate_50 = Math.floor(product_cost_sum / 0.5)
-      $('#product-cost-result').text(product_cost_sum);
+      var cost_rate_30 = Math.floor(product_cost_sum / 0.3);
+      var cost_rate_40 = Math.floor(product_cost_sum / 0.4);
+      var cost_rate_50 = Math.floor(product_cost_sum / 0.5);
+      $('#product-cost-result').text("：" + product_cost_sum + "/個");
       $('#product-cost-price').val(product_cost_sum);
-      $('#product-cost-30').text(cost_rate_30 + "円(参考価格)");
-      $('#product-cost-40').text(cost_rate_40 + "円(参考価格)");
-      $('#product-cost-50').text(cost_rate_50 + "円(参考価格)");
+      $('#product-cost-30').text(cost_rate_30 + "円/個(参考価格)");
+      $('#product-cost-40').text(cost_rate_40 + "円/個(参考価格)");
+      $('#product-cost-50').text(cost_rate_50 + "円/個(参考価格)");
       $('#material-submit').prop('disabled', false); //登録ボタン表示
     });
   });
@@ -107,6 +107,18 @@
       if ($('.remove-delete').length == 1) {       //削除ボタンが1つだった時
         $('#add-btn').show();                   //材料追加ボタンを出す
       }
+    });
+  });
+</script>
+
+<script> //商品価格を入力すると原価率がわかる
+  $(function() {
+    $('#product_sales_price').change(function() {
+      var product_cost_sum = $(".material-cost-price").get().reduce((s, e) => +e.value + s, 0);
+      var sales_price = $(this).val();
+      var cost_rate = Math.floor(product_cost_sum / sales_price * 100);
+      $('#cost-rate-result').text("：" + cost_rate + "％");
+      $('#product-cost-rate').val(cost_rate);
     });
   });
 </script>
