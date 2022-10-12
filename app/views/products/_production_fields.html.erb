@@ -8,7 +8,9 @@
         <input type="hidden" class="material-per-price "id="material-select-per-price">
         <input type="hidden" class="material-cost-price "id="material-select-cost-price">
 
-      <td><%= f.number_field :use_material_number, class: "use-material-number", id: "material-select-use-number" %></td>
+      <td>
+        <%= f.number_field :use_material_number, class: "use-material-number", id: "material-select-use-number" %>
+      </td>
       <td><button type="button" class="material-determine">確定</button></td>
       <td><%= link_to_remove_association "削除", f, class: 'remove-delete', id: 'remove-btn' %></td>
     </tr>
@@ -119,6 +121,15 @@
       var cost_rate = Math.floor(product_cost_sum / sales_price * 100);
       $('#cost-rate-result').text("：" + cost_rate + "％");
       $('#product-cost-rate').val(cost_rate);
+    });
+  });
+</script>
+
+<script> //登録ボタンを押したときに材料が表示となる
+  $(function() {
+    $('#material-submit').click(function() {
+      $('.material-select').prop('disabled', false);
+      $('.use-material-number').prop('disabled', false);
     });
   });
 </script>
