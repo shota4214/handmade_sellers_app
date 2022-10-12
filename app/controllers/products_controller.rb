@@ -16,16 +16,19 @@ class ProductsController < ApplicationController
   def create
     @product = @shop.products.build(product_params)
     use_materials = params[:product][:productions_attributes]
-    if @product.save
-      use_materials.each do |use_material|
-        material_info = use_material[1]
-        material = Material.find(material_info.fetch("material_id"))
-        number_used = material_info.fetch("use_material_number").to_i
-        material_stock = material.stock - number_used
-        material.update!(stock: material_stock)
-      end
+    begin
+      ActiveRecord::Base.transaction{
+        @product.save
+        use_materials.each do |use_material|
+          material_info = use_material[1]
+          material = Material.find(material_info.fetch("material_id"))
+          number_used = material_info.fetch("use_material_number").to_i
+          material_stock = material.stock - number_used
+          material.update!(stock: material_stock)
+        end
+      }
       redirect_to top_shop_path(@shop), notice: "商品を登録しました"
-    else
+    rescue
       render :new
     end
   end
