@@ -8,6 +8,7 @@ class Shop < ApplicationRecord
   has_many :material_categories, dependent: :destroy
   has_many :units, dependent: :destroy
   has_many :suppliers, dependent: :destroy
+  has_many :products, dependent: :destroy
   validates :name, presence: true, uniqueness: true, length: { maximum: 100}
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true, 
     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }

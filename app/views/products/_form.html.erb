@@ -1,0 +1,86 @@
+
+<%= form_with(model: [shop, product], local: true) do |f| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= product.errors.count %>件のエラーがあります。</h2>
+      <ul>
+        <% product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= image_tag(product.image.url) if product.image && product.image.url %>
+    <%= f.file_field :image %>
+    <%= f.hidden_field :image_cache %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "商品名" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :create_date %>
+    <%= f.date_select :create_date, use_month_numbers: true, start_year: 2000, end_year: (Time.now.year), default: (Time.now), autofocus: true, autocomplete: "purchase_date", class: "date-select" %>
+  </div>
+
+  <div class="class-parent">
+    <label>materials</label>
+    <div class="add-button-box">
+      <%= link_to_add_association "材料を追加", f, :productions,
+        class: 'btn add_fields',
+        id: 'add-btn',
+        data: {
+          association_insertion_node: '#detail-association-productions',
+          association_insertion_method: 'after'
+        }
+      %>
+      <div id='detail-association-productions'>
+        <%= f.fields_for :productions do |production| %>
+          <%= render "production_fields", f: production %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :product_stock %>
+    <%= f.number_field :product_stock, min: 1, :value => 1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :product_cost_price %><span class="product-cost-result" id="product-cost-result">：商品原価</span>
+    <%= f.hidden_field :product_cost_price, id: "product-cost-price" %><br>
+    <label>原価率30%：</label><span id="product-cost-30">価格</span><br>
+    <label>原価率40%：</label><span id="product-cost-40">価格</span><br>
+    <label>原価率50%：</label><span id="product-cost-50">価格</span><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :cost_rate %><span class="cost-rate-result" id="cost-rate-result">：0％</span>
+    <%= f.hidden_field :cost_rate, id: "product-cost-rate" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sales_price %>
+    <%= f.number_field :sales_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :remarks %>
+    <%= f.text_area :remarks %>
+  </div>
+
+  <div class="recalculation">
+    <button type="button" id="recalculation-btn" disabled="true">再計算</button>
+  </div>
+
+  <div class="field">
+    <%= f.submit "登録", id: "material-submit", :disabled => true %>
+  </div>
+<% end %>
